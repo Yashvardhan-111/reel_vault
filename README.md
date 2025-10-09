@@ -53,3 +53,43 @@ DB Connection
 Cache DB connections (so each serverless call doesn’t open a new one).If you don’t cache the connection, each function will open a new MongoDB connection → you’ll quickly hit connection limits and crash the DB.
 So we need to form a global obj to track if DB is connected or not or promise is on the way(call has been accept or rejection will happen) that is in types.d.ts
 db connection in lib\db.ts
+
+AUTHORIZATION 
+NextAuth’s Session - A session is the object you get when a user is authenticated.By default, it looks like this (from DefaultSession):
+interface DefaultSession {
+  user?: {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+  };
+  expires: string; // ISO date when session expires
+}
+Most apps need more than just name,email,image.So you extend Session like in next-auth.d.ts
+Final type after augmentation
+Your Session type now looks like:
+interface Session {
+  user: {
+    id: string;          // ✅ custom field
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+  };
+  expires: string;
+}
+
+register is handled by api. api folder is created only by name "api".
+NextRequest-A wrapper around the standard Web API Request object, provided by Next.js in App Router (app/api routes).
+NextResponse used to give response easily like ApiResponse 
+
+Login 
+login options are configured.There can be multiple ways such as google,discord or by credentials. In credentials dev needs to define the logic in authorize func.NextAuth expects a value back.return null → reject login.return user object → login success.
+Done in lib/auth.ts
+callbacks are just functions that let you control what happens at certain points in the authentication flow.The main callbacks
+ jwt → runs whenever a JWT is created/updated.Purpose is to Decide what data to put inside the token.
+ session → runs whenever a session is checked/created.
+ signIn → runs when someone tries to sign in
+ redirect → runs after login/logout to control where the user goes.
+.
+NextAuth(authOptions) creates a request handler function based on your configuration (providers, callbacks, etc.).That handler knows how to respond to GET and POST requests (for login, logout, session fetching, etc.).You save it in handler so you can export it.
+export { handler as GET, handler as POST } wires that API into Next.js routing.In App Router, API routes (e.g. app/api/auth/[...nextauth]/route.ts) must export functions named after HTTP methods (GET, POST, etc.).When a client calls GET /api/auth/... → Next.js runs handler
+Done in app/api/auth/[...nextauth]/route.ts this file naming is necessary
