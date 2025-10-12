@@ -105,3 +105,11 @@ These together form a temporary credential that allows the frontend to upload to
 Done in app\api\video\route.ts
 the frontend uploads to imageKit and ImageKit send a response. Details fron this response and other details(title,description) taken through a form on front end is sent to backend to be saved.
 GET to get all videos , POST to create new video record
+
+
+FRONTEND
+In regular React The whole app loads in the browser, then React hydrates it (makes it interactive) which is slow and low SEO.Next.js introduced a new hybrid model:
+Server Components (default):Run on the server → send ready-to-render HTML to the browser.Faster, smaller bundle size, SEO-friendly.
+Client Components:Marked with "use client" → run in browser → handle state, events, interactivity.React hooks like useState, useEffect, and useRouter are enabled.
+
+
