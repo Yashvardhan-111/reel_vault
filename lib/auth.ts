@@ -4,6 +4,7 @@ import { connectToDatabase } from "./db";
 import User from "@/models/User";
 import bcrypt from "bcryptjs";
 
+//authOptions is a central blueprint how users log in, how sessions should behave, what fields to include in the session, which pages to use, and how to secure everything.
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
