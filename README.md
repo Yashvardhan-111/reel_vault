@@ -93,3 +93,15 @@ callbacks are just functions that let you control what happens at certain points
 NextAuth(authOptions) creates a request handler function based on your configuration (providers, callbacks, etc.).That handler knows how to respond to GET and POST requests (for login, logout, session fetching, etc.).You save it in handler so you can export it.
 export { handler as GET, handler as POST } wires that API into Next.js routing.In App Router, API routes (e.g. app/api/auth/[...nextauth]/route.ts) must export functions named after HTTP methods (GET, POST, etc.).When a client calls GET /api/auth/... → Next.js runs handler
 Done in app/api/auth/[...nextauth]/route.ts this file naming is necessary
+
+
+ImageKit
+NEXT_PUBLIC_ prefix needs to be used for environment variable if it is to be made available for frontend.
+Done in app\api\auth\imagekit-auth\route.ts
+The auth parameters = a short-lived “upload pass” proving that your backend (and therefore your app) approved this upload.
+When you call getUploadAuthParams() on your server, it generates three things token,expire,signature. authenticationParameters ={ token, expire, signature }
+These together form a temporary credential that allows the frontend to upload to your ImageKit account securely.The image is directly uploaded to ImageKit’s CDN, without exposing private key.
+.upload is on hold rn
+Done in app\api\video\route.ts
+the frontend uploads to imageKit and ImageKit send a response. Details fron this response and other details(title,description) taken through a form on front end is sent to backend to be saved.
+GET to get all videos , POST to create new video record
