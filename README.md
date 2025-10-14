@@ -111,5 +111,14 @@ FRONTEND
 In regular React The whole app loads in the browser, then React hydrates it (makes it interactive) which is slow and low SEO.Next.js introduced a new hybrid model:
 Server Components (default):Run on the server → send ready-to-render HTML to the browser.Faster, smaller bundle size, SEO-friendly.
 Client Components:Marked with "use client" → run in browser → handle state, events, interactivity.React hooks like useState, useEffect, and useRouter are enabled.
+login and register frontend done in app
+
+Middleware 
+runs before a request. Used to check authentication. Created in root folder.function (from next-auth/middleware) is a wrapper that adds built-in authentication logic to your middleware.
+It automatically Parses cookies,Validates JWT/session,Gives you access to the token(we didn t use though).
+The inner callbacks.authorized() runs on every request the middleware intercepts.
+It returns true for routes you want open (like /login, /register, /api/auth, /api/videos, /) and !!token (user must be logged in) for everything else.If it returns false, NextAuth blocks or redirects the request.
+The config.matcher line limits where this middleware runs so it skips static files, images, and things in /public.
+NextResponse.next() tells Next.js middleware to pass the request through to the next stage
 
 
