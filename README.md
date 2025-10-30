@@ -121,4 +121,39 @@ It returns true for routes you want open (like /login, /register, /api/auth, /ap
 The config.matcher line limits where this middleware runs so it skips static files, images, and things in /public.
 NextResponse.next() tells Next.js middleware to pass the request through to the next stage
 
+ImageKit upload 
+provider.ts exists to be used in layout to wrap your entire Next.js app with global context providers — in this case, for NextAuth (session) and ImageKit (media handling).
+SessionProvider
+From next-auth/react, it keeps track of whether the user is logged in.
+It makes the useSession() hook work anywhere in your app.refetchInterval means it will refresh session data every 5 minutes.
+ImageKitProvider
+From @imagekit/next, it gives upload and URL transformation capabilities to all child components.It provides the useImageKit() hook.It uses urlEndpoint (your ImageKit endpoint) to generate optimized image URLs automatically.
+Change in layout 
+gives auth + image upload context to your whole app without needing to import them separately on each page.
 
+FileUpload.tsx component - handles the upload 
+onSuccess → a function called when the upload finishes successfully.
+Takes one argument res (the ImageKit response).
+onProgress → an optional callback that receives a number (the % uploaded).
+fileType → an optional prop that specifies what kind of file to accept
+uploading → a boolean to track whether an upload is happening.
+error → stores an error message (if any).
+A file’s MIME type (Multipurpose Internet Mail Extensions type) is a string that tells the browser or server what kind of file it is.Image: File JPEG	has MIME TYPE image/jpeg, Video: file MP4 has MIME type video/mp4. startsWith("video/") checks that it’s any kind of video (MP4, MOV, etc.).
+validateFile() - Ensures the uploaded file is valid (type & size).
+onSuccess() - Notifies parent that upload finished.It receives res, which is the response     from ImageKit — usually contains the file URL, file ID, etc.
+User selects a file → onChange fires → handleFileChange(event) runs.
+FileUpload by itself doesn’t do anything until a parent component renders it and passes props, including onSuccess.eg
+ <FileUpload
+  fileType="video"
+  onSuccess={(res) => {
+    console.log("Uploaded file URL:", res.url);
+    setVideoUrl(res.url); // save uploaded file info
+  }}
+/>
+OnProgress - upload() from @imagekit/next supports an internal onProgress event.
+Every time some bytes are uploaded, this function runs.
+event.loaded = bytes uploaded so far
+event.total = total file size
+We calculate % uploaded and call the parent’s onProgress callback.
+
+ApiClient is a custom wrapper around the built-in fetch() function — it simplifies and standardizes how your app talks to your backend (/api routes).
