@@ -157,3 +157,7 @@ event.total = total file size
 We calculate % uploaded and call the parent’s onProgress callback.
 
 ApiClient is a custom wrapper around the built-in fetch() function — it simplifies and standardizes how your app talks to your backend (/api routes).
+
+DEBUGGING 
+-Connection string used in MongoDB for connection.Put .env in root file i.e the same folder as your package.json and next.config.js.
+-React Context (like SessionProvider, ImageKitProvider, etc.) is client-side only — it relies on the browser environment. Used "use client" in layout.tsx
