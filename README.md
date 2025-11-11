@@ -51,7 +51,7 @@ models is an object provided by Mongoose.basically a cache that stores all compi
 
 DB Connection 
 Cache DB connections (so each serverless call doesn’t open a new one).If you don’t cache the connection, each function will open a new MongoDB connection → you’ll quickly hit connection limits and crash the DB.
-So we need to form a global obj to track if DB is connected or not or promise is on the way(call has been accept or rejection will happen) that is in types.d.ts
+So we need to form a global obj to track if DB is connected or not or promise is on the way(call has been sent accept or rejection will happen) that is in types.d.ts
 db connection in lib\db.ts
 
 AUTHORIZATION 
