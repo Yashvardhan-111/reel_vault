@@ -158,6 +158,28 @@ We calculate % uploaded and call the parent’s onProgress callback.
 
 ApiClient is a custom wrapper around the built-in fetch() function — it simplifies and standardizes how your app talks to your backend (/api routes).
 
+NEW COMPONENTS
+Header
+This component creates a responsive navigation bar (navbar) for your app with:
+A home link and logo (Video with AI)
+A user profile menu (dropdown)
+Conditional options depending on whether a user is logged in or not
+
+Notifications 
+global notification system
+NotificationContext stores the showNotification function, which can be used anywhere.
+NotificationProvider wraps the app, manages notification state, and displays a toast for 3 seconds whenever showNotification is called.
+useNotification() is a custom hook to access showNotification easily inside any component.
+
+VideoComponents
+Displays a video card with a preview, title, and description. It uses ImageKit for optimized video rendering and Next.js’s <Link> for smooth navigation to the video’s detail page.
+IKVideo is a React component provided by ImageKit, a media management and optimization platform.It’s a wrapper around the regular HTML <video> tag, but adds automatic optimization, CDN delivery, and transformations.Loads videos directly from ImageKit using your project’s urlEndpoint.Applies transformations like resizing, cropping, or format changes on the fly without editing the original video. Reduces load time and bandwidth by serving the most optimized version depending on the device.Link is a special component in Next.js that enables client-side routing — meaning when you click a link, it doesn’t reload the page like a normal <a> tag.Navigates between pages instantly without a full refresh.
+
+VideoFeed-Main component displaying a collection of video cards
+VideoUploadForm-lets users upload videos (and optionally thumbnails) to your app.
+It collects title, description, video, and thumbnail data, then sends it to an API route (/api/video) for saving to a database
+
 DEBUGGING 
 -Connection string used in MongoDB for connection.Put .env in root file i.e the same folder as your package.json and next.config.js.
 -React Context (like SessionProvider, ImageKitProvider, etc.) is client-side only — it relies on the browser environment. Used "use client" in layout.tsx
+-Error Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. Avoid client side rendering of layout.tsx modify layout.tsx to render a small client wrapper component that imports Providers (keeps layout as server). This is a compatible pattern with the app router and avoids possible transform issues.
