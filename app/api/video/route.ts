@@ -7,6 +7,11 @@ import { NextRequest, NextResponse } from "next/server";
 //get all videos
 export async function GET() {
     try {
+        const session = await getServerSession();
+        if (!session) {
+            return NextResponse.redirect(new URL("/login", process.env.NEXT_PUBLIC_BASE_URL));
+        }
+
         await connectToDatabase();
         const videos = await Video.find({}).sort({ createdAt: -1 }).lean();
 

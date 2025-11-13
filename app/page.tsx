@@ -75,29 +75,22 @@
 //     </main>
 //   )
 // }
-"use client";
-import { useEffect, useState } from "react";
+
 import VideoFeed from "./components/VideoFeed";
 import { IVideo } from "@/models/Video";
 import { Film, TrendingUp, Clock } from "lucide-react";
-
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 export default async function HomePage() {
-  const [videos, setVideos] = useState<IVideo[]>([]);
+  const session = await getServerSession(authOptions);
+  if (!session) redirect("/login")
 
-  useEffect(() => {
-    const fetchVideos = async () => {
-      try {
-        const res = await fetch("/api/video");
-        if (!res.ok) throw new Error("Failed to fetch");
-        const data: IVideo[] = await res.json();
-        setVideos(data);
-      } catch (error) {
-        console.error("Error fetching videos:", error);
-      }
-    };
-    fetchVideos();
-  }, []);
+  const res = await fetch("http://localhost:3000/api/video", {
+    cache: "no-store",
+  });
+  const videos = await res.json();
 
   return (
     <section className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-purple-900 px-4 py-8">
