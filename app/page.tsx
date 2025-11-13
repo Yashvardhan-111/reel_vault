@@ -65,13 +65,53 @@
 //   );
 // };
 
-// export default VideoFeedPage;
-import VideoFeed from "./components/VideoFeed"
-export default function Home() {
+// // export default VideoFeedPage;
+// import VideoFeed from "./components/VideoFeed"
+// export default function Home() {
+//   return (
+//     <main className="container mx-auto p-4">
+//       <h1 className="text-3xl font-bold mb-6">Video Gallery</h1>
+//       <VideoFeed videos={[]} />
+//     </main>
+//   )
+// }
+"use client";
+import { useEffect, useState } from "react";
+import VideoFeed from "./components/VideoFeed";
+import { IVideo } from "@/models/Video";
+import { Film, TrendingUp, Clock } from "lucide-react";
+
+
+export default async function HomePage() {
+  const [videos, setVideos] = useState<IVideo[]>([]);
+
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const res = await fetch("/api/video");
+        if (!res.ok) throw new Error("Failed to fetch");
+        const data: IVideo[] = await res.json();
+        setVideos(data);
+      } catch (error) {
+        console.error("Error fetching videos:", error);
+      }
+    };
+    fetchVideos();
+  }, []);
+
   return (
-    <main className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Video Gallery</h1>
-      <VideoFeed videos={[]} />
-    </main>
-  )
+    <section className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-purple-900 px-4 py-8">
+      {/* Background grid pattern */}
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEyNywgMCwgMjU1LCAwLjEpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-20 pointer-events-none"></div>
+      
+      <div className="relative max-w-7xl mx-auto">
+        <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">
+          <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+            🎥 Featured Videos
+          </span>
+        </h1>
+        <VideoFeed videos={videos} />
+      </div>
+    </section>
+  );
 }
