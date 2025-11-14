@@ -1,5 +1,5 @@
-//reusable form component for uploading videos
 "use client";
+//reusable form component for uploading videos
 
 import { useState } from "react";
 import FileUpload from "./FileUpload";

@@ -1,5 +1,5 @@
-//Navbar
 "use client";
+//Navbar
 
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
@@ -35,7 +35,7 @@ export default function Header() {
             >
               <Home className="w-5 h-5 text-purple-400 group-hover:text-purple-300 transition-colors" />
               <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                Video with AI
+                ReelVault
               </span>
             </Link>
           </div>

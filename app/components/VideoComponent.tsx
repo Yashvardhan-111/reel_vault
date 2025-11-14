@@ -1,5 +1,6 @@
-//reusable card that displays an uploaded video
 "use client"
+//reusable card that displays an uploaded video
+
 import { IKVideo } from "imagekitio-next";
 import Link from "next/link";
 import { IVideo } from "@/models/Video";

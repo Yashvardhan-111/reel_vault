@@ -1,5 +1,5 @@
-//global notification system
 "use client";
+//global notification system
 
 import { createContext, useContext, useState, ReactNode } from "react";
 
