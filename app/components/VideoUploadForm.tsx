@@ -75,7 +75,7 @@ export default function VideoUploadForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full max-w-2xl mx-auto bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-8 space-y-8 border border-gray-200 dark:border-gray-700"
+      className="w-full max-w-2xl mx-auto  dark:bg-gray-900 rounded-2xl shadow-lg p-8 space-y-8 border border-gray-200 dark:border-gray-700"
     >
       <div>
         <label className="block font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">
