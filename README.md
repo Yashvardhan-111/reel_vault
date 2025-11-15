@@ -183,3 +183,5 @@ DEBUGGING
 -Connection string used in MongoDB for connection.Put .env in root file i.e the same folder as your package.json and next.config.js.
 -React Context (like SessionProvider, ImageKitProvider, etc.) is client-side only — it relies on the browser environment. Used "use client" in layout.tsx
 -Error Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. Avoid client side rendering of layout.tsx modify layout.tsx to render a small client wrapper component that imports Providers (keeps layout as server). This is a compatible pattern with the app router and avoids possible transform issues.
+-The moment a <IKVideo /> component renders, it tries to do getIKClient() that requires urlEndpoint If missing error.
+To fix it wrap the entire app with ImageKitProvider
