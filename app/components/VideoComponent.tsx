@@ -15,7 +15,7 @@ export default function VideoComponent({ video }: { video: IVideo }) {
             style={{ aspectRatio: "9/16" }}
           >
             <IKVideo
-              path={video.videoUrl}
+              src={video.videoUrl}
               transformation={[
                 {
                   height: "1920",
@@ -23,8 +23,9 @@ export default function VideoComponent({ video }: { video: IVideo }) {
                 },
               ]}
               controls={video.controls}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
             />
+            
           </div>
         </Link>
       </figure>
