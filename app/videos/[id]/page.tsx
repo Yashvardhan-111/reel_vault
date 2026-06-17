@@ -3,9 +3,9 @@ import { connectToDatabase } from "@/lib/db";
 import Video from "@/models/Video";
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 async function getVideoById(id: string) {
@@ -25,7 +25,8 @@ async function getVideoById(id: string) {
 }
 
 export default async function VideoDetailPage({ params }: Props) {
-  const video = await getVideoById(params.id);
+  const { id } = await params;
+  const video = await getVideoById(id);
   if (!video) {
     notFound();
   }
