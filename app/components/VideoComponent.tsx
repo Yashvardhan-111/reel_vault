@@ -7,11 +7,11 @@ import { IVideo } from "@/models/Video";
 
 export default function VideoComponent({ video }: { video: IVideo }) {
   return (
-    <div className="card bg-base-100 shadow hover:shadow-lg transition-all duration-300">
+    <div className="rounded-3xl border border-slate-800 bg-slate-950/95 shadow-2xl shadow-black/30 hover:shadow-purple-500/25 transition-all duration-300 overflow-hidden">
       <figure className="relative px-4 pt-4">
-        <Link href={`/videos/${video._id}`} className="relative group w-full">
+        <Link href={`/videos/${video._id}`} className="relative group block w-full">
           <div
-            className="rounded-xl overflow-hidden relative w-full"
+            className="rounded-3xl overflow-hidden relative w-full"
             style={{ aspectRatio: "9/16" }}
           >
             <IKVideo
@@ -23,22 +23,21 @@ export default function VideoComponent({ video }: { video: IVideo }) {
                 },
               ]}
               controls={video.controls}
-              className="w-full h-full object-contain"
+              className="w-full h-full object-contain bg-black"
             />
-            
           </div>
         </Link>
       </figure>
 
-      <div className="card-body p-4">
+      <div className="p-4">
         <Link
           href={`/videos/${video._id}`}
           className="hover:opacity-80 transition-opacity"
         >
-          <h2 className="card-title text-lg">{video.title}</h2>
+          <h2 className="text-lg font-semibold text-slate-100">{video.title}</h2>
         </Link>
 
-        <p className="text-sm text-base-content/70 line-clamp-2">
+        <p className="text-sm text-slate-400 line-clamp-2 mt-2">
           {video.description}
         </p>
       </div>

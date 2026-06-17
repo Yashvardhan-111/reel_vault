@@ -73,12 +73,19 @@ const FileUpload = ({ onSuccess, onProgress, fileType }: FileUploadProps) => {
 
   return (
     <>
-      <input
-        type="file"
-        accept={fileType === "video" ? "video/*" : "image/*"}
-        onChange={handleFileChange}
-      />
-      {uploading && <span>Loading....</span>}
+      <label className="flex items-center justify-between w-full px-4 py-3 rounded-xl border border-slate-700 bg-slate-900 text-slate-100 cursor-pointer hover:bg-slate-800 transition-all">
+        <span>{uploading ? "Uploading file..." : `Choose ${fileType === "video" ? "video" : "image"}`}</span>
+        <span className="text-sm text-slate-400">Browse</span>
+        <input
+          type="file"
+          accept={fileType === "video" ? "video/*" : "image/*"}
+          onChange={handleFileChange}
+          className="sr-only"
+          disabled={uploading}
+        />
+      </label>
+      {uploading && <span className="text-slate-400 mt-2 block">Loading...</span>}
+      {error && <p className="text-red-400 mt-2">{error}</p>}
     </>
   );
 };

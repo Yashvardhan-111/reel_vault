@@ -1,1 +1,26 @@
 @import "tailwindcss";
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background-image: radial-gradient(circle at top left, rgba(168, 85, 247, 0.35), transparent 24%),
+    radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.22), transparent 18%),
+    linear-gradient(180deg, #09061a 0%, #120a2f 55%, #1e1a3e 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: #e2e8f0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}

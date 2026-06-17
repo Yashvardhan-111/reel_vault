@@ -75,16 +75,16 @@ export default function VideoUploadForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full max-w-2xl mx-auto  dark:bg-gray-900 rounded-2xl shadow-lg p-8 space-y-8 border border-gray-200 dark:border-gray-700"
+      className="w-full max-w-2xl mx-auto bg-slate-900/95 rounded-3xl shadow-2xl shadow-black/40 p-8 space-y-8 border border-slate-800"
     >
       <div>
-        <label className="block font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">
+        <label className="block font-semibold text-lg text-slate-100 mb-2">
           🎬 Title
         </label>
         <input
           name="title"
           type="text"
-          className="mt-1 w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="mt-1 w-full px-4 py-3 border border-slate-700 rounded-md bg-slate-900 text-slate-100 focus:outline-none focus:ring-2 focus:ring-purple-500"
           required
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -92,12 +92,12 @@ export default function VideoUploadForm() {
       </div>
 
       <div>
-        <label className="block font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">
+        <label className="block font-semibold text-lg text-slate-100 mb-2">
           📝 Description
         </label>
         <textarea
           name="description"
-          className="mt-1 w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="mt-1 w-full px-4 py-3 border border-slate-700 rounded-md bg-slate-900 text-slate-100 focus:outline-none focus:ring-2 focus:ring-purple-500"
           required
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -105,7 +105,7 @@ export default function VideoUploadForm() {
       </div>
 
       <div>
-        <label className="block font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">
+        <label className="block font-semibold text-lg text-slate-100 mb-2">
           📁 Upload Video
         </label>
         <FileUpload
@@ -116,7 +116,7 @@ export default function VideoUploadForm() {
 
       {/* New: Optional Thumbnail Upload */}
       <div>
-        <label className="block font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">
+        <label className="block font-semibold text-lg text-slate-100 mb-2">
           🖼️ Optional Thumbnail Image
         </label>
         <FileUpload
@@ -124,7 +124,7 @@ export default function VideoUploadForm() {
           onSuccess={(res) => setThumbnailFile(res)}
         />
         {thumbnailFile && (
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+          <p className="text-sm text-slate-300 mt-2">
             Thumbnail selected: {thumbnailFile.name || "(No name)"}
           </p>
         )}
